@@ -22,7 +22,7 @@ module.exports = {
         server: SQL_SERVER,
         // port: SQL_DATABASE_PORT,        
         options: {
-            encrypt: true,
+            encrypt: sqlEncrypt,
             enableArithAbort: true
         }
     }
