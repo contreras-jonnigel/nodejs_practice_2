@@ -7,7 +7,7 @@ const sql = require('mssql');
 const getEvents = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        // let pool = await sql.connect('Server=cueplatformdev.database.windows.net;Username=nodejsdb;Integrated Security=true;Trusted Connection=true;');
+        
         const sqlQueries = await utils.loadSqlQueries('Events');
         const list = await pool.request().query(sqlQueries.eventsList);
         return list.recordset;
@@ -17,6 +17,22 @@ const getEvents = async () => {
     }
 }
 
+const getById = async (eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+
+        const sqlQueries = await utils.loadSqlQueries('Events');
+        const oneEvent = await pool.request()
+                        .input('eventId', sql.Int, eventId)
+                        .query(sqlQueries.eventById);
+        return oneEvent.recordset;
+
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
-    getEvents
+    getEvents,
+    getById
 }
