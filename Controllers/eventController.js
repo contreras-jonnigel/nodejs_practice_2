@@ -42,9 +42,20 @@ const updateEvent = async(req, res, next) => {
     }
 }
 
+const deleteEvent = async(req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        await eventData.deleteEvent(eventId);
+        res.send(`The event with ID number ${eventId} has been deleted successfully.`);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getEvents,
     getEvent,
     addEvent,
-    updateEvent
+    updateEvent,
+    deleteEvent
 }

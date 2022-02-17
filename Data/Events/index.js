@@ -74,9 +74,25 @@ const updateEvent = async (eventId, eventData) => {
     }
 }
 
+const deleteEvent = async (eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+
+        const sqlQueries = await utils.loadSqlQueries('Events');
+        const deleteEvent = await pool.request()
+                            .input('eventId', sql.Int, eventId)
+                            .query(sqlQueries.deleteEvent);
+        return deleteEvent.recordset;
+
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getEvents,
     getById,
     createEvent,
-    updateEvent
+    updateEvent,
+    deleteEvent
 }
