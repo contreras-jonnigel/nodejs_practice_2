@@ -10,17 +10,17 @@ Installed NPM Packages and NPM commands:
 Edit package.json under "scripts"
 1. "start": "nodemon index.js"
 
-.env sample:
+.env template:
 NODE_ENV=development
 
 #express serve config
-#PORT=5000
-#HOST=localhost
-#HOST_URL=http://localhost:5000
+1. PORT=5000
+2. HOST=localhost
+3. HOST_URL=http://localhost:5000
 
 #sql server config
-#SQL_USER=
-#SQL_PASSWORD=
-#SQL_DATABASE=
-#SQL_SERVER=localhost
-#SQL_ENCRYPT=false
+1. SQL_USER=
+2. SQL_PASSWORD=
+3. SQL_DATABASE=
+4. SQL_SERVER=localhost
+5. SQL_ENCRYPT=false
