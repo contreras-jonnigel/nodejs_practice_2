@@ -21,7 +21,18 @@ const getEvent = async(req, res, next) => {
     }
 }
 
+const addEvent = async(req, res, next) => {
+    try {
+        const data = req.body;
+        await eventData.createEvent(data);
+        res.send(`The ${data.eventTitle.toString()} event has been created successfully.`);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getEvents,
-    getEvent
+    getEvent,
+    addEvent
 }

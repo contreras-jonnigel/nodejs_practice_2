@@ -32,7 +32,28 @@ const getById = async (eventId) => {
     }
 }
 
+const createEvent = async (eventData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+
+        const sqlQueries = await utils.loadSqlQueries('Events');
+        const createEvent = await pool.request()
+                            .input('eventTitle', sql.NVarChar(100), eventData.eventTitle)
+                            .input('eventDescription', sql.NVarChar(1500), eventData.eventDescription)
+                            .input('startDate', sql.Date, eventData.startDate)
+                            .input('endDate', sql.Date, eventData.endDate)
+                            .input('avenue', sql.NVarChar(200), eventData.avenue)
+                            .input('maxMembers', sql.Int, eventData.maxMembers)
+                            .query(sqlQueries.createEvent);
+        return createEvent.recordset;
+
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getEvents,
-    getById
+    getById,
+    createEvent
 }
